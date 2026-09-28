@@ -1,0 +1,22 @@
+/**:
+  ros__parameters:
+    arm: both
+    shadow: true
+    external_image_topic: /zed_m/left/image_raw/compressed
+    wrist_image_topic: /right_wrist/color/image_raw/compressed
+    left_wrist_image_topic: /left_wrist/color/image_raw/compressed
+    joint_state_topic: /right_arm/feedback/joint_states
+    left_joint_state_topic: /left_arm/feedback/joint_states
+    image_size: 224
+    gripper_min_width_m: 0.0
+    gripper_max_width_m: 0.0996
+    left_gripper_min_width_m: 0.0
+    left_gripper_max_width_m: 0.1005
+    inference_rate_hz: 5.0
+    max_observation_age_sec: 0.5
+    max_observation_skew_sec: 0.25
+    connect_timeout_sec: 5.0
+    inference_timeout_sec: 30.0
+    connection_retry_sec: 2.0
+    log_dir: /tmp/nero_pi05_bridge
+    prompt: pick up the marker with the right arm, open the drawer with the left arm, put the marker in the drawer, and close the drawer

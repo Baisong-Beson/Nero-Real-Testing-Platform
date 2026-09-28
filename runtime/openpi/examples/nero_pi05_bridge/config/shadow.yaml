@@ -1,0 +1,16 @@
+/**:
+  ros__parameters:
+    shadow: true
+    external_image_topic: /external/zed_node/rgb/color/rect/image
+    image_size: 224
+    # Gate 1 verified left AGX gripper interval. Closedness is 0 at 0.099 m
+    # and 1 at 0.030 m; values outside this interval are clipped.
+    gripper_min_width_m: 0.030
+    gripper_max_width_m: 0.099
+    inference_rate_hz: 5.0
+    max_observation_age_sec: 0.5
+    max_observation_skew_sec: 0.25
+    connect_timeout_sec: 5.0
+    inference_timeout_sec: 30.0
+    connection_retry_sec: 2.0
+    log_dir: /tmp/nero_pi05_bridge
