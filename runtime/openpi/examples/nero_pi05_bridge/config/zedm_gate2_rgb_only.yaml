@@ -1,8 +1,0 @@
-/**:
-  ros__parameters:
-    depth:
-      depth_mode: "NONE"
-    general:
-      grab_resolution: "HD720"
-      pub_resolution: "NATIVE"
-      pub_frame_rate: 15.0

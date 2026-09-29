@@ -1,4 +1,0 @@
-# Install in the Python environment that runs act_policy_server.py.
-# It must also provide torch, torchvision, timm, hydra-core and opencv-python.
-msgpack>=1.0
-websockets>=15.0

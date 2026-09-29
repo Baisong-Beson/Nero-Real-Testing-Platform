@@ -140,3 +140,10 @@ doc/progress/*
 
 act_eval_workbench/tools/build_local_pi05_package.py
 runtime/openpi/examples/nero_pi05_bridge/test/*experiment*.py
+runtime/openpi/examples/
+act_eval_workbench/tools/demo_local_pi05.py
+act_eval_workbench/tools/diagnose_reset_tracking.py
+act_eval_workbench/tools/verify_reset_bounded_real.py
+act_eval_workbench/tools/verify_slew_bounded_real.py
+tools/diagnose_policy_oscillation.py
+tools/validate_open_disable.py

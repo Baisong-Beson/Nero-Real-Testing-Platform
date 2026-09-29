@@ -22,4 +22,10 @@ MSG_SETUP="$NERO_PLATFORM_ROOT/runtime/ros/agx_arm_msgs/share/agx_arm_msgs/local
 if [ -f "$MSG_SETUP" ]; then
     source "$MSG_SETUP"
 fi
-export PYTHONPATH="$NERO_PLATFORM_ROOT:$NERO_PLATFORM_ROOT/act_eval_workbench:$NERO_PLATFORM_ROOT/runtime/openpi/examples/nero_pi05_bridge:$NERO_PLATFORM_ROOT/runtime/openpi/src:$NERO_PLATFORM_ROOT/runtime/openpi/packages/openpi-client/src:${PYTHONPATH:-}"
+
+PYTHONPATH_ENTRIES="$NERO_PLATFORM_ROOT:$NERO_PLATFORM_ROOT/act_eval_workbench:$NERO_PLATFORM_ROOT/runtime/openpi/src:$NERO_PLATFORM_ROOT/runtime/openpi/packages/openpi-client/src"
+BRIDGE_ROOT="$NERO_PLATFORM_ROOT/runtime/openpi/examples/nero_pi05_bridge"
+if [ -d "$BRIDGE_ROOT" ]; then
+    PYTHONPATH_ENTRIES="$PYTHONPATH_ENTRIES:$BRIDGE_ROOT"
+fi
+export PYTHONPATH="$PYTHONPATH_ENTRIES:${PYTHONPATH:-}"
