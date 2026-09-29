@@ -16,3 +16,6 @@ Milestones:
 - 2026-09-28: Privacy scan completed with no tracked workstation paths; machine-specific documentation, connection settings, generated installs, and private data tools were removed.
 
 - 2026-09-28: A fresh public clone passed the source entry-point check and Python compilation; the temporary clone was removed after verification.
+
+- 2026-09-29: The desktop launcher was repaired by removing an unreachable debug block, resolving the platform root from the launcher location, and activating the available runtime environment for non-login desktop launches.
+- 2026-09-29: The source check passed and the desktop self-test reached the Tk interface on the active display; the self-test then stopped at an existing default-selection assertion.
