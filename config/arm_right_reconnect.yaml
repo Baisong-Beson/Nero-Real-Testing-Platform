@@ -1,0 +1,20 @@
+/right_arm/agx_arm_ctrl_single_node:
+  ros__parameters:
+    arm_type: nero
+    auto_enable: false
+    can_port: can0
+    control_enabled: false
+    effector_type: agx_gripper
+    enable_timeout: 5.0
+    fast_mode: false
+    gripper_default_effort: 0.5
+    pub_rate: 200
+    revo2_type: left
+    speed_percent: 35
+    tcp_offset: !!python/tuple
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0

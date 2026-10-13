@@ -1,0 +1,62 @@
+--- a/agx_arm_ctrl_single_node.py
++++ b/agx_arm_ctrl_single_node.py
+@@ -847,18 +847,55 @@
+             self.get_logger().error(f"hand control param error: {e}")
+ 
+     ### service callbacks
++    def _disable_gripper_verified(self, timeout=1.5):
++        """Disable the independent gripper motor and require fresh feedback."""
++        if self.effector_type != "agx_gripper":
++            return True
++        if self.gripper is None:
++            self.get_logger().error("Gripper unavailable; cannot confirm disabled")
++            return False
++        sent = time.time()
++        deadline = time.monotonic() + timeout
++        while time.monotonic() < deadline:
++            # SDK return may reflect the pre-command sample; verify a new one.
++            self.gripper.disable()
++            status = self.gripper.get_status()
++            if (status is not None and status.timestamp >= sent
++                    and 0 <= time.time() - status.timestamp <= .25
++                    and not status.driver_enable_status):
++                self.get_logger().info("Gripper disabled: fresh driver_enable_status=False")
++                return True
++            time.sleep(.025)
++        self.get_logger().error("Gripper disable not confirmed by fresh feedback")
++        return False
++
+     def _enable_callback(self, request, response):
+         try:
+-            if not self._check_arm_ready():
++            if not request.data:
++                self.control_enabled = False
++                self._control_gate_block_logged = False
++                arm_ok = False
++                gripper_ok = False
++                failures = []
++                try:
++                    arm_ok = self._check_arm_ready() and self._enable_arm(False)
++                except Exception as exc:
++                    failures.append(f"arm: {exc}")
++                # Gripper disable must still be attempted if arm disable fails.
++                try:
++                    gripper_ok = self._disable_gripper_verified()
++                except Exception as exc:
++                    failures.append(f"gripper: {exc}")
++                response.success = bool(arm_ok and gripper_ok)
++                response.message = (f"Arm disabled={bool(arm_ok)}; gripper disabled={bool(gripper_ok)}"
++                                    + ("; " + "; ".join(failures) if failures else ""))
++            elif not self._check_arm_ready():
+                 response.success = False
+                 response.message = "Agx_arm is not connected"
+                 self.get_logger().warn("Agx_arm is not connected, cannot set enable state")
+             elif request.data:
+                 response.success = True if self._enable_arm(True) else False
+                 response.message = "Agx_arm enabled" if response.success else "Failed to enable Agx_arm"
+-            else:
+-                response.success = True if self._enable_arm(False) else False
+-                response.message = "Agx_arm disabled" if response.success else "Failed to disable Agx_arm"
+             
+         except Exception as e:
+             response.success = False
